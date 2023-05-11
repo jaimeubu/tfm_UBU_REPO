@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Formulario</title>
+    <!-- Agrega el enlace a Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  </head>
+  <body>
+    <div class="container">
+      <h1>Modelos de IA de diagnóstico de salud del corazón</h1>
+      <form action="/api/predict" method="post">
+        <fieldset class="border p-2 mt-4">
+          <legend class="w-auto">Salud y Características Personales</legend>
+          <div class="form-group">
+            <label for="stroke">Ataque cerebral:</label>
+            <input type="checkbox" name="stroke" id="stroke">
+          </div>
+          <fieldset class="form-group">
+            <div class="row">
+              <legend class="col-form-label col-sm-2 pt-0">Diabetes</legend>
+              <div class="col-sm-10">
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="diabetes" id="nodiabetes" value="0" required>
+                  <label class="form-check-label" for="nodiabetes">
+                    Sin diabetes
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="diabetes" id="prediabetes" value="1">
+                  <label class="form-check-label" for="prediabetes">
+                    Pre-diabetes o diabetes limítrofe
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="diabetes" id="diabetes" value="2">
+                  <label class="form-check-label" for="diabetes">
+                    Diabetes
+                  </label>
+                </div>
+              </div>
+            </div>
+          </fieldset>
+          <div class="form-group">
+            <label for="highBP">Presión arterial alta:</label>
+            <input type="checkbox" name="highBP" id="highBP">
+          </div>
+          <div class="form-group">
+            <label for="highChol">Colesterol alto:</label>
+            <input type="checkbox" name="highChol" id="highChol">
+          </div>
+          <div class="form-group">
+            <label for="cholCheck">Verificación de colesterol en los utlimos 5 años:</label>
+            <input type="checkbox" name="cholCheck" id="cholCheck">
+          </div>
+          <div class="form-group">
+            <label for="bmi">Índice de masa corporal (BMI):</label>
+            <input type="number" name="bmi" id="bmi" class="form-control" required>
+          </div>
+          <fieldset class="form-group">
+            <div class="row">
+              <legend class="col-form-label col-sm-2 pt-0">Salud general</legend>
+              <div class="col-sm-10">
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="genHlth" id="excelente" value="1" required>
+                  <label class="form-check-label" for="excelente">
+                    Excelente
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="genHlth" id="muybuena" value="2">
+                  <label class="form-check-label" for="muybuena">
+                    Muy buena
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="genHlth" id="buena" value="3">
+                  <label class="form-check-label" for="buena">
+                    Buena
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="genHlth" id="regular" value="4">
+                  <label class="form-check-label" for="regular">
+                    Regular
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="genHlth" id="mala" value="5">
+                  <label class="form-check-label" for="mala">
+                    Mala
+                  </label>
+                </div>
+              </div>
+            </div>
+          </fieldset>
+          <div class="form-group">
+            <label for="mentHlth">Nº de dias con mala salud mental en los últimos 30 dias:</label>
+            <input type="number" name="mentHlth" id="mentHlth" class="form-control" min="0" max="30" required>
+          </div>
+          <div class="form-group">
+            <label for="physHlth">Nº de dias con mala salud fisica en los últimos 30 dias:</label>
+            <input type="number" name="physHlth" id="physHlth" class="form-control" min="0" max="30" required>
+          </div>
+          <div class="form-group">
+            <label for="diffWalk">Dificultad para caminar/subir escaleras:</label>
+            <input type="checkbox" name="diffWalk" id="diffWalk">
+          </div>
+          <fieldset class="form-group">
+            <div class="row">
+              <legend class="col-form-label col-sm-2 pt-0">Sexo</legend>
+              <div class="col-sm-10">
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="sex" id="male" value="1" onchange="changeAlcoholText()" required>
+                  <label class="form-check-label" for="male">
+                    Hombre
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="sex" id="female" value="0" onchange="changeAlcoholText()">
+                  <label class="form-check-label" for="female">
+                    Mujer
+                  </label>
+                </div>
+              </div>
+            </div>
+          </fieldset>
+          <div class="form-group">
+            <label for="age">Edad:</label>
+            <input type="number" name="age" id="age" class="form-control" min="18" required>
+          </div>
+          <fieldset class="form-group">
+            <div class="row">
+              <legend class="col-form-label col-sm-2 pt-0">Educación</legend>
+              <div class="col-sm-10">
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="education" id="parbulario" value="1" required>
+                  <label class="form-check-label" for="parbulario">
+                    Parbulario
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="education" id="colegio" value="2">
+                  <label class="form-check-label" for="colegio">
+                    Colegio
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="education" id="sinInstituto" value="3">
+                  <label class="form-check-label" for="sinInstituto">
+                    Insituto sin terminar
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="education" id="instituto" value="4">
+                  <label class="form-check-label" for="instituto">
+                    Instituto
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="education" id="sinUni" value="5">
+                  <label class="form-check-label" for="sinUni">
+                    Universidad sin terminar
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="education" id="uni" value="6">
+                  <label class="form-check-label" for="uni">
+                    Graduado o superior
+                  </label>
+                </div>
+              </div>
+            </div>
+          </fieldset>
+          <fieldset class="form-group">
+            <div class="row">
+              <legend class="col-form-label col-sm-2 pt-0">Ingresos anuales</legend>
+              <div class="col-sm-10">
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="income" id="diez" value="1" required>
+                  <label class="form-check-label" for="diez">
+                    10.000 o menos
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="income" id="colegio" value="2">
+                  <label class="form-check-label" for="colegio">
+                    15.000 o menos
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="income" id="sinInstituto" value="3">
+                  <label class="form-check-label" for="sinInstituto">
+                    20.000 o menos
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="income" id="instituto" value="4">
+                  <label class="form-check-label" for="instituto">
+                    35.000 o menos
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="income" id="sinUni" value="5">
+                  <label class="form-check-label" for="sinUni">
+                    50.000 o menos
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="income" id="uni" value="6">
+                  <label class="form-check-label" for="uni">
+                    75.000 o menos
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="income" id="uni" value="6">
+                  <label class="form-check-label" for="uni">
+                    Más de 75.0000
+                  </label>
+                </div>
+              </div>
+            </div>
+          </fieldset>
+        </fieldset>
+        
+        <fieldset class="border p-2">
+          <legend class="w-auto">Actividad y Consumo</legend>
+          
+          <div class="form-group">
+            <label for="smoker">Fumador (100 cigarrillos):</label>
+            <input type="checkbox" name="smoker" id="smoker">
+          </div>
+          <div class="form-group">
+            <label for="physActivity">Actividad física (ejercicio en los útlimos 30 días):</label>
+            <input type="checkbox" name="physActivity" id="physActivity">
+          </div>
+          <div class="form-group">
+            <label for="fruits">Consumo de frutas (mínimo 1 al día):</label>
+            <input type="checkbox" name="fruits" id="fruits">
+          </div>
+          <div class="form-group">
+            <label for="veggies">Consumo de vegetales (mínimo 1 al día):</label>
+            <input type="checkbox" name="veggies" id="veggies">
+          </div>
+          <div class="form-group">
+            <label for="hvyAlcoholConsump">Rellene el campo de sexo:</label>
+            <input type="checkbox" name="hvyAlcoholConsump" id="hvyAlcoholConsump">
+          </div>
+          <div class="form-group">
+            <label for="anyHealthcare">Seguro médico contratado:</label>
+            <input type="checkbox" name="anyHealthcare" id="anyHealthcare">
+          </div>
+          <div class="form-group">
+            <label for="noDocbcCost">No ha acudido al médico en el último año por el coste de acudir:</label>
+            <input type="checkbox" name="noDocbcCost" id="noDocbcCost">
+          </div>
+        </fieldset>
+          
+        <input type="submit" value="Enviar" class="btn btn-primary">
+      </form>
+    </div>
+      
+      <!-- Agrega el enlace a Bootstrap JS y jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script>
+    function changeAlcoholText() {
+      var sex = document.querySelector('input[name="sex"]:checked').value;
+      var alcoholLabel = document.getElementById('hvyAlcoholConsump');
+    
+      if (sex === "1") {
+        alcoholLabel.labels[0].textContent = "Consumo de al menos 14 bebidas alcoholicas a la semana:";
+      } else if (sex === "0") {
+        alcoholLabel.labels[0].textContent = "Consumo de al menos 7 bebidas alcoholicas a la semana:";
+      } else {
+        alcoholLabel.labels[0].textContent = "Rellene el campo de sexo";
+      }
+    }
+    </script>
+  </body>
+</html>
+  
