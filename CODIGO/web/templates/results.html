@@ -4,26 +4,50 @@
     <title>Resultado</title>
     <!-- Agrega el enlace a Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+      body{
+        background-color: aliceblue;
+      }
+      .container{
+        margin-top: 5%;
+        padding-bottom: 5%;
+        background-color: white;
+        border-radius: 1%;
+        color: #999;
+        font-size: 0.8em;
+        padding: 2%;
+        padding-top: 1%;
+        width: 60%;
+      }</style>
   </head>
   <body>
     <div class="container">
-      <h1>Resultado</h1>
+      <h1 class="text-center">Resultado</h1>
       
       {% if result|int == 0 %}
       <div class="alert alert-success" role="alert">
-        Riesgo bajo. Ninguno de nuestros expertos considera que sea una persona de riesgo. Ehorabuena!
+        <h2>¡Enhorabuena!</h2>
+        <hr> 
+        <p style="font-size: 20px;">Riesgo bajo. Ninguno de nuestros expertos considera que sea una persona de riesgo.</p>
       </div>
       {% elif result|int <= 3 %}
       <div class="alert alert-warning" role="alert">
-        Riesgo alto. Almenos {{ result }} de nuestros agentes considera que es una persona de riesgo. Deberia mejorar su calidad de vida y consultar con un especialista.
+        <h2>¡Atención!</h2>
+        <hr> 
+        <p style="font-size: 20px;">Riesgo alto. Almenos {{ result }} de nuestros agentes considera que es una persona de riesgo. Debería mejorar su calidad de vida y consultar con un especialista.</p>
       </div>
       {% else %}
       <div class="alert alert-danger" role="alert">
-        Riesgo extremadamente alto. Todos nuestros agentes expertos le considera una persona de riesgo. Acuda inmediatamente a un especialista.
+        <h2>¡Atención!</h2>
+        <hr> 
+        <p style="font-size: 20px;">Riesgo extremadamente alto. Todos nuestros agentes expertos le consideran una persona de riesgo. Acuda inmediatamente a un especialista.</p>
       </div>
       {% endif %}
       
-      <a href="/" class="btn btn-primary">Volver al formulario</a>
+      <a href="/" class="btn btn-secondary">
+        <i class="fas fa-undo-alt fa-fw"></i> Volver al formulario
+      </a>
     </div>
     
     <!-- Agrega el enlace a Bootstrap JS y jQuery -->

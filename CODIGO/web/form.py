@@ -1,4 +1,5 @@
-from flask import Flask, redirect, request, render_template, jsonify, url_for
+import os
+from flask import Flask, redirect, request, render_template, url_for
 import pandas as pd
 import joblib
 from sklearn.neural_network import MLPClassifier
@@ -7,12 +8,12 @@ from sklearn.linear_model import LogisticRegression
 import math
 
 app = Flask(__name__)
-
+script_route = os.path.dirname(os.path.abspath(__file__))
 models = []
-models.append(joblib.load("logisticReggression.pkl"))
-models.append(joblib.load("neuralNetwork.pkl"))
-models.append(joblib.load("randomForest.pkl"))
-models.append(joblib.load("svm.pkl"))
+models.append(joblib.load(os.path.join(script_route, "logisticReggression.pkl")))
+models.append(joblib.load(os.path.join(script_route, "neuralNetwork.pkl")))
+models.append(joblib.load(os.path.join(script_route, "randomForest.pkl")))
+models.append(joblib.load(os.path.join(script_route, "svm.pkl")))
 
 @app.route("/", methods=["GET"])
 def home():
@@ -86,13 +87,13 @@ def predict():
             # Es el único algoritmo que no se beneficia del scaler
             prediction = model.predict(df)[0]
         elif isinstance(model, MLPClassifier):
-            loaded_scaler = joblib.load('nNScaler.joblib')
+            loaded_scaler = joblib.load(os.path.join(script_route, 'nNScaler.joblib'))
             prediction = model.predict(loaded_scaler.transform(df))[0]
         elif isinstance(model, LogisticRegression):
-            loaded_scaler= joblib.load('lRScaler.joblib')
+            loaded_scaler= joblib.load(os.path.join(script_route, 'lRScaler.joblib'))
             prediction = model.predict(loaded_scaler.transform(df))[0]
         else:
-           loaded_scaler = joblib.load('svmScaler.joblib')
+           loaded_scaler = joblib.load(os.path.join(script_route, 'svmScaler.joblib'))
            prediction = model.predict(loaded_scaler.transform(df))[0]
         #prediction = model.predict(df.values)
         predictions.append(prediction)
