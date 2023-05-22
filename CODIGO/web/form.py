@@ -82,19 +82,9 @@ def predict():
     df = pd.DataFrame(input_data)
     #print(df)
     predictions = []
+    loaded_scaler = joblib.load(os.path.join(script_route, 'nNScaler.joblib'))
     for model in models:
-        if isinstance(model, RandomForestClassifier):
-            # Es el único algoritmo que no se beneficia del scaler
-            prediction = model.predict(df)[0]
-        elif isinstance(model, MLPClassifier):
-            loaded_scaler = joblib.load(os.path.join(script_route, 'nNScaler.joblib'))
-            prediction = model.predict(loaded_scaler.transform(df))[0]
-        elif isinstance(model, LogisticRegression):
-            loaded_scaler= joblib.load(os.path.join(script_route, 'lRScaler.joblib'))
-            prediction = model.predict(loaded_scaler.transform(df))[0]
-        else:
-           loaded_scaler = joblib.load(os.path.join(script_route, 'svmScaler.joblib'))
-           prediction = model.predict(loaded_scaler.transform(df))[0]
+        prediction = model.predict(loaded_scaler.transform(df))[0]
         #prediction = model.predict(df.values)
         predictions.append(prediction)
     print(predictions)
@@ -106,13 +96,18 @@ def predict():
         result = "Riesgo alto"
     else:
         result = "Riesgo extremadamente alto"
+
+    ensamble = joblib.load(os.path.join(script_route, "ensamble.pkl"))
+    ensamble_prediction = ensamble.predict(loaded_scaler.transform(df))[0]
     
-    return redirect(url_for('show_result', result=sum_pred))
+    
+    return redirect(url_for('show_result', result=sum_pred, ensamble_result=ensamble_prediction))
 
 @app.route('/result', methods=['GET'])
 def show_result():
     result = request.args.get('result', '')
-    return render_template('results.html', result=result)
+    ensamble_result = request.args.get('ensamble_result','')
+    return render_template('results.html', result=result, ensamble_result=ensamble_result)
 
 
 if __name__ == "__main__":

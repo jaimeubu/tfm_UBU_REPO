@@ -44,6 +44,20 @@
         <p style="font-size: 20px;">Riesgo extremadamente alto. Todos nuestros agentes expertos le consideran una persona de riesgo. Acuda inmediatamente a un especialista.</p>
       </div>
       {% endif %}
+
+      {% if ensamble_result|int == 0 %}
+      <div class="alert alert-success" role="alert">
+        <h2>¡Enhorabuena!</h2>
+        <hr> 
+        <p style="font-size: 20px;">Riesgo bajo. Según nuestro experto que toma en consideración el resto de expertos no considera que sea una persona de riesgo.</p>
+      </div>
+      {% else %}
+      <div class="alert alert-danger" role="alert">
+        <h2>¡Atención!</h2>
+        <hr> 
+        <p style="font-size: 20px;">Riesgo extremadamente alto. Según nuestro experto que toma en consideración el resto de expertos le considera una persona de riesgo. Acuda inmediatamente a un especialista.</p>
+      </div>
+      {% endif %}
       
       <a href="/" class="btn btn-secondary">
         <i class="fas fa-undo-alt fa-fw"></i> Volver al formulario
