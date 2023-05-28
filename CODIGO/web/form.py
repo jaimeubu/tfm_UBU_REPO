@@ -10,10 +10,10 @@ import math
 app = Flask(__name__)
 script_route = os.path.dirname(os.path.abspath(__file__))
 models = []
-models.append(joblib.load(os.path.join(script_route, "logisticReggression.pkl")))
-models.append(joblib.load(os.path.join(script_route, "neuralNetwork.pkl")))
-models.append(joblib.load(os.path.join(script_route, "randomForest.pkl")))
-models.append(joblib.load(os.path.join(script_route, "svm.pkl")))
+models.append(joblib.load(os.path.join(script_route, "models/logisticReggression.pkl")))
+models.append(joblib.load(os.path.join(script_route, "models/neuralNetwork.pkl")))
+models.append(joblib.load(os.path.join(script_route, "models/randomForest.pkl")))
+models.append(joblib.load(os.path.join(script_route, "models/svm.pkl")))
 
 @app.route("/", methods=["GET"])
 def home():
@@ -82,7 +82,7 @@ def predict():
     df = pd.DataFrame(input_data)
     #print(df)
     predictions = []
-    loaded_scaler = joblib.load(os.path.join(script_route, 'nNScaler.joblib'))
+    loaded_scaler = joblib.load(os.path.join(script_route, 'models/eScaler.joblib'))
     for model in models:
         prediction = model.predict(loaded_scaler.transform(df))[0]
         #prediction = model.predict(df.values)
@@ -97,7 +97,7 @@ def predict():
     else:
         result = "Riesgo extremadamente alto"
 
-    ensamble = joblib.load(os.path.join(script_route, "ensamble.pkl"))
+    ensamble = joblib.load(os.path.join(script_route, "models/ensamble.pkl"))
     ensamble_prediction = ensamble.predict(loaded_scaler.transform(df))[0]
     
     
