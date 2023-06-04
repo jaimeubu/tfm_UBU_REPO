@@ -89,13 +89,6 @@ def predict():
         predictions.append(prediction)
     print(predictions)
     sum_pred = int(sum(predictions))
-    
-    if sum_pred == 0:
-        result = "Riesgo bajo"
-    elif sum_pred <= 2:
-        result = "Riesgo alto"
-    else:
-        result = "Riesgo extremadamente alto"
 
     ensamble = joblib.load(os.path.join(script_route, "models/ensamble.pkl"))
     ensamble_prediction = ensamble.predict(loaded_scaler.transform(df))[0]
