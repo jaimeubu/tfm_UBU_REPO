@@ -1,7 +1,7 @@
 import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
-from sklearn.metrics import classification_report, confusion_matrix
+from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, roc_auc_score, classification_report, confusion_matrix
 from imblearn.under_sampling import RandomUnderSampler
 import joblib
 ###n_estimators = 100, max_features = 'sqrt', random_state = 42.
@@ -32,6 +32,22 @@ rfc.fit(x_train, y_train)
 
 # Evaluate the model with the test data
 y_pred = rfc.predict(x_test)
+y_prob = rfc.predict_proba(x_test)[:, 1]
+
+# Evaluar la precisión del modelo
+accuracy = accuracy_score(y_test, y_pred)
+precision = precision_score(y_test, y_pred)
+recall = recall_score(y_test, y_pred)
+f1 = f1_score(y_test, y_pred)
+roc_auc = roc_auc_score(y_test, y_prob)
+
+# Imprimir las métricas
+print("Accuracy:", accuracy)
+print("Precision:", precision)
+print("Recall:", recall)
+print("F1-score:", f1)
+print("ROC AUC score:", roc_auc)
+
 print(classification_report(y_test, y_pred))
 
 matrix = confusion_matrix(y_test, y_pred)

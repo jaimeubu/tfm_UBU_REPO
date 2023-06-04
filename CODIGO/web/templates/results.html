@@ -29,13 +29,13 @@
       <div class="alert alert-success" role="alert">
         <h2>¡Enhorabuena!</h2>
         <hr> 
-        <p style="font-size: 20px;">Riesgo bajo. Ninguno de nuestros expertos considera que sea una persona de riesgo.</p>
+        <p style="font-size: 20px;">Riesgo bajo. Ninguno de nuestros cuatro expertos considera que sea una persona de riesgo.</p>
       </div>
       {% elif result|int <= 3 %}
       <div class="alert alert-warning" role="alert">
         <h2>¡Atención!</h2>
         <hr> 
-        <p style="font-size: 20px;">Riesgo alto. Almenos {{ result }} de nuestros agentes considera que es una persona de riesgo. Debería mejorar su calidad de vida y consultar con un especialista.</p>
+        <p style="font-size: 20px;">Riesgo alto. Almenos {{ result }} de nuestros cuatro agentes considera que es una persona de riesgo. Debería mejorar su calidad de vida y consultar con un especialista.</p>
       </div>
       {% else %}
       <div class="alert alert-danger" role="alert">
